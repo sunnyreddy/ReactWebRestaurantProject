@@ -1,6 +1,22 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+// class CommentForm extends Component{
+
+//     toggleModal(){
+        
+//     }
+
+//     render(){
+//         return(
+//             <Button outline onClick={() => this.toggleModal()}>
+//                 <span className="fa fa-sign-in fa-lg"></span>
+//              Submit Feedback
+//             </Button>
+//         );
+//     }
+// }
 
 function RenderDish({dish}) {
     if (dish != null)
