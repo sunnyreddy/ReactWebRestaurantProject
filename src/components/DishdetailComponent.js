@@ -1,22 +1,56 @@
 import React, {Component} from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, ListGroup, 
+    ListGroupItem, Modal,ModalBody,Form,FormGroup,Label,Input,ModalHeader } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-// class CommentForm extends Component{
+class CommentForm extends Component{
 
-//     toggleModal(){
-        
-//     }
+    constructor(props){
+        super(props);
+        this.state = {
+            isModalOpen: false,
+        }
+    }
 
-//     render(){
-//         return(
-//             <Button outline onClick={() => this.toggleModal()}>
-//                 <span className="fa fa-sign-in fa-lg"></span>
-//              Submit Feedback
-//             </Button>
-//         );
-//     }
-// }
+    toggleModal(){
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    }
+
+    submitComment(){
+        console.log("comment submitted");
+    }
+
+    render(){
+        return(
+            <div>
+                <Button outline onClick={() => this.toggleModal()}>
+                    <span className="fa fa-sign-in fa-lg"></span>
+                Submit Feedback
+                </Button>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={() => this.toggleModal()}>Comment</ModalHeader>
+                    <ModalBody>
+                    <Form onSubmit={(e) => this.submitComment(e)}>
+                            <FormGroup>
+                                <Label htmlFor="username">Name</Label>
+                                <Input type="text" id="username" name="username"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="comment">Comment</Label>
+                                <Input type="textarea" id="comment" name="comment"
+                                 />
+                            </FormGroup>
+                            <Button type="submit" value="submit" color="primary">submit</Button>
+                        </Form>
+                    </ModalBody>
+                </Modal>
+            </div>
+        );
+    }
+}
 
 function RenderDish({dish}) {
     if (dish != null)
@@ -72,25 +106,28 @@ const DishDetail = (props) => {
     //     return(<div></div>);
     return (
         <div className="container">
-        <div className="row">
-            <Breadcrumb>
+            <div className="row">
+                <Breadcrumb>
 
-                <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-            </Breadcrumb>
-            <div className="col-12">
-                <h3>{props.dish.name}</h3>
-                <hr />
-            </div>                
-        </div>
-        <div className="row">
-            <div className="col-12 col-md-5 m-1">
-                <RenderDish dish={props.dish} />
+                    <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>{props.dish.name}</h3>
+                    <hr />
+                </div>                
             </div>
-            <div className="col-12 col-md-5 m-1">
-                <RenderComments comments={props.comments} />
+            <div className="row">
+                <div className="col-12 col-md-5 m-1">
+                    <RenderDish dish={props.dish} />
+                </div>
+                <div className="col-12 col-md-5 m-1">
+                    <RenderComments comments={props.comments} />
+                </div>
             </div>
-        </div>
+            
+            <CommentForm/>
+            
         </div>
     );
 }
