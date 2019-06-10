@@ -18,8 +18,10 @@ class CommentForm extends Component{
         });
     }
 
-    submitComment(){
-        console.log("comment submitted");
+    submitComment(event){
+        this.toggleModal();
+        alert("Username: " + this.username.value + " Comment: " + this.comment.value);
+        event.preventDefault();
     }
 
     render(){
@@ -36,11 +38,13 @@ class CommentForm extends Component{
                             <FormGroup>
                                 <Label htmlFor="username">Name</Label>
                                 <Input type="text" id="username" name="username"
+                                innerRef={(input) => this.username = input}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="comment">Comment</Label>
                                 <Input type="textarea" id="comment" name="comment"
+                                innerRef={(input) => this.comment = input}
                                  />
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">submit</Button>
@@ -123,10 +127,9 @@ const DishDetail = (props) => {
                 </div>
                 <div className="col-12 col-md-5 m-1">
                     <RenderComments comments={props.comments} />
+                    <CommentForm/>
                 </div>
             </div>
-            
-            <CommentForm/>
             
         </div>
     );
